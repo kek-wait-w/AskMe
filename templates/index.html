@@ -1,0 +1,17 @@
+
+{% extends "inc/base.html" %}
+{% load static %}
+{%block content %}
+<div>
+  <h2 class="head">New questions</h2>
+</div>
+
+{% for question in questions%}
+  {% include "inc/question_item.html"%}
+{% endfor %}
+
+{% include "paginator.html" with objects=objects %}
+    <div class="row" style="height: 5vh"></div>
+{%endblock content%}
+
+

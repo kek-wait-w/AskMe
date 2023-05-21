@@ -1,0 +1,36 @@
+{% extends "inc/base.html" %}
+{% load static %}
+{%block content %}
+<div>
+  <h2 class="head">Сколько корма он съел?</h2>
+</div>
+
+<div class = "row">
+  <div class ="col-3">
+    <div class ="question-avatar">
+         <img src="../static/img/1_2.jpg" alt="avatar">
+    </div>
+    <button class= "like-button" > Like (50)</button>
+  </div>
+  <div class = "col-7">
+    <div class="question-page-text" > Вчера вечером мой полуторагодовалый ребенок добрался до кошачьей миски и наелся кошачьего корма. Так как чувствовал он себя при этом прекрасно, звонить врачу или что-то предпринимать по этому поводу мы с мужем не стали. Но утром я заглянула в интернет и узнала, что в еде для кошек слишком много токсичного витамина А, а еще в нем бывают опасные микробы — и вот теперь переживаю.
+Мой вопрос такой: насколько опасен кошачий корм для детей и нужно ли что-то делать, если ребенок его уже съел?</div>
+  </div>
+</div>
+
+{% for question in questions%}
+  {% include "inc/question_item.html"%}
+{% endfor %}
+
+<div class="mb-3">
+    <label for="answer"   class="form-label">Your answer</label>
+
+    <textarea  class = "answer" id="answer" rows="10" name="tags" cols="110">
+    </textarea>
+
+  </div>
+  <div><button type="submit" class="btn btn-primary">Answer</button></div>
+
+
+
+{%endblock content%}
