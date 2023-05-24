@@ -17,6 +17,7 @@ def paginate(objects_list, request):
     return objects_page
 
 
+@login_required(login_url='login', redirect_field_name="continue")
 def index(request):
     questions_list = models.Question.objects.new_questions()
     questions = paginate(questions_list, request)
@@ -26,18 +27,32 @@ def index(request):
 
 
 def log_in(request):
-    print(request.GET)
-    print(request.POST)
-
-    login_form = LoginForm(data=request.POST)
-    if login_form.is_valid():
-        user = auth.authenticate(request=request, **login_form.cleaned_data)
-        if user:
-            login(request, user)
-            return redirect(reverse('index'))
-        login_form.add_error(None, "Wrong login or password ")
+    if request.method == 'GET':
+        login_form = LoginForm()
+    elif request.method == 'POST':
+        login_form = LoginForm(data=request.POST)
+        if login_form.is_valid():
+            user = auth.authenticate(request=request, **login_form.cleaned_data)
+            if user:
+                login(request, user)
+                return redirect(reverse('index'))
+            login_form.add_error(field=None, error="Wrong login or password ")
 
     return render(request, "login.html", context={'form': login_form})
+
+
+def signup(request):
+    if request.method == 'GET':
+        user_form = RegistrationForm()
+    elif request.method == 'POST':
+        user_form = RegistrationForm(data=request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            if user:
+                return redirect(reverse('index'))
+            else:
+                user_form.add_error(field=None, error="User saving error!")
+    return render(request, "register.html", {'form': user_form})
 
 
 def question(request):
@@ -51,10 +66,6 @@ def ask(request):
 
 def register(request):
     return render(request, 'register.html')
-
-
-def login(request, user):
-    return render(request, 'login.html')
 
 
 def tag(request):
