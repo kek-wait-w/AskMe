@@ -6,11 +6,12 @@
   <h2 class="head">New questions</h2>
 </div>
 
+<div class="ms-5">
 {% for question in questions%}
-  {% include "inc/question_item.html"%}
+  {% include "inc/question_item.html" with question=question%}
 {% endfor %}
-
-{% include "paginator.html" with objects=objects %}
+</div>
+{% include "paginator.html" with objects=questions %}
     <div class="row" style="height: 5vh"></div>
 {%endblock content%}
 

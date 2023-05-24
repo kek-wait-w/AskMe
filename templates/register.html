@@ -1,17 +1,21 @@
-{% extends "inc/base.html" %}
+{% extends 'inc/base.html' %}
+
 {% load static %}
 {% load bootstrap5 %}
-{%block content %}
-    <div>
-      <h2 class="mt-5">Registration</h2>
-    </div>
-    <div class="col-6">
-        <form novalidate action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button type="button" class="choose-btn">Choose</button>
-        <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+{% bootstrap_messages %}
+
+{% block content %}
+
+    <div class="header">
+        <h1>Registration</h1>
     </div>
 
-{%endblock content%}}
+    <form action="{% url 'register' %}" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="my-3 btn btn-primary">Register</button>
+        {% endbuttons %}
+    </form>
+
+{%endblock%}

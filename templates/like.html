@@ -1,0 +1,15 @@
+{% block like %}
+    <div class="row mt-4" style="text-align: center">
+        <button type="button" class="btn btn-success btn-md" style="width:50px; margin:auto">
+            <span class="glyphicon glyphicon-arrow-up"></span>
+        </button>
+    </div>
+    <div class="row mt-2">
+        <b style="text-align:center; width:50px; margin: auto;">{{ rating }}</b>
+    </div>
+    <div class="row mt-2">
+        <button type="button" class="btn btn-danger btn-md" style="width:50px; margin: auto;">
+            <span class="glyphicon glyphicon-arrow-down"></span>
+        </button>
+    </div>
+{% endblock %}

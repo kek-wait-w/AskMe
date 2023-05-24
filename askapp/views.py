@@ -6,12 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from . import models
-
-from .forms import LoginForm
+from .forms import LoginForm, RegistrationForm
 
 
 def paginate(objects_list, request):
-    paginator = Paginator(objects_list, 30)
+    paginator = Paginator(objects_list, 3)
     page = request.GET.get('page')
     objects_page = paginator.get_page(page)
     return objects_page
@@ -22,8 +21,13 @@ def index(request):
     questions_list = models.Question.objects.new_questions()
     questions = paginate(questions_list, request)
     return render(request, 'index.html', {
-        'objects': questions
+        'questions': questions
     })
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect(reverse('index'))
 
 
 def log_in(request):
@@ -41,18 +45,30 @@ def log_in(request):
     return render(request, "login.html", context={'form': login_form})
 
 
-def signup(request):
+def register(request):
     if request.method == 'GET':
-        user_form = RegistrationForm()
+        reg_form = RegistrationForm()
     elif request.method == 'POST':
-        user_form = RegistrationForm(data=request.POST)
-        if user_form.is_valid():
-            user = user_form.save()
+        reg_form = RegistrationForm(data=request.POST, files=request.FILES)
+        if reg_form.is_valid():
+            user = reg_form.save()
             if user:
-                return redirect(reverse('index'))
+                # avatar = None ?
+                auth.login(request, user)
+                models.Profile.objects.create(user=user, avatar=reg_form.cleaned_data['avatar'])
+                return redirect(reverse(viewname="index"))
             else:
-                user_form.add_error(field=None, error="User saving error!")
-    return render(request, "register.html", {'form': user_form})
+                reg_form.add_error(None, "User saving error")
+    context = {'form': reg_form}
+    return render(request, "register.html", context=context)
+
+
+def hot_view(request):
+    questions_list = models.Question.objects.hot_questions()
+    questions = paginate(questions_list, 3)
+    return render(request, 'hot.html', {
+        'objects': questions
+    })
 
 
 def question(request):
@@ -60,14 +76,12 @@ def question(request):
     return render(request, 'question.html', answer)
 
 
+@login_required(login_url='login.html', redirect_field_name="continue")
 def ask(request):
     return render(request, 'ask.html')
 
 
-def register(request):
-    return render(request, 'register.html')
-
-
+@login_required(login_url='login', redirect_field_name="continue")
 def tag(request):
     context = {'questions': models.QUESTIONS}
     return render(request, 'tag.html', context)

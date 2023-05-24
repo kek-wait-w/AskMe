@@ -29,7 +29,8 @@ main > .container {
 }
 
 .question-text{
-    margi-bottom: 10%;
+    margin-bottom: 5%;
+    width: 100%;
 }
 
 .head{
@@ -41,6 +42,7 @@ main > .container {
 .head-2{
     color: black;
     text-decoration: none;
+    font-size: 1rem;
 }
 
 .head-2:hover{
