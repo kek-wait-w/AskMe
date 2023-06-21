@@ -125,6 +125,19 @@ main > .container {
     right: 100px;
 }
 
+.like{
+    margin-top: 12px;
+}
+
+.like img{
+    width: 40px;
+    margin-left: 35px;
+}
+
+.counter{
+    display: inline-block;
+}
+
 
 /* buttons */
 .choose-btn{

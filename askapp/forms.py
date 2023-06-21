@@ -43,3 +43,28 @@ class RegistrationForm(forms.ModelForm):
             return User.objects.create_user(**cleaned_data)
         except IntegrityError:
             return None
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileForm(forms.ModelForm):
+    nickname = forms.CharField(max_length=100, required=False)
+    avatar = forms.ImageField()
+
+    class Meta:
+        model = Profile
+        fields = ['nickname', 'avatar']
+
+
+class SettingsForm(forms.ModelForm):
+    avatar = forms.FileField(widget=forms.FileInput(), required=False)
+
+    class Meta:
+        model =  User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+

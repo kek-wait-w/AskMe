@@ -8,7 +8,7 @@
     <div class="col-6">
         <form novalidate action="{% url 'login' %}" method="post">
         {% csrf_token %}
-            {% bootstrap_form form %}
+        {% bootstrap_form form %}
         <button type="submit" class="btn btn-primary">Submit</button>
         <div> <a href="{% url 'register' %}" class="new-account" > Create new account </a> </div>
         </form>

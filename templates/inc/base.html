@@ -95,10 +95,10 @@
       <div class="d-flex ms-auto">
         <a href=""><img class="profile-avatar-navbar" src="../static/img/1_1.jpg" alt=""></a>
         <div class="autorize-section">
-          <p class="mb-0" style="color:white">User name</p>
+          {{ user_info.user.username }}
         <div>
-          <a class="me-2" href="/login/"> log out</a>
-          <a href="#">settings</a>
+          <a class="me-2" href="{% url 'logout' %}"> log out</a>
+          <a href="{% url 'settings' %}">settings</a>
         </div>
         </div>
       </div>

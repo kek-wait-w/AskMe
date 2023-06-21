@@ -6,7 +6,9 @@
     <div class ="question-avatar">
          <img src="../static/img/1_2.jpg" alt="avatar">
     </div>
-    <button class= "like-button" > Like (50)</button>
+        <div class="question-page-like rating-result">
+        {% include 'inc/like.html' %}
+    </div>
   </div>
   <div class = "col-9">
     <h2><a  class="head-2" href="/question/">{{question.title}}</a></h2>

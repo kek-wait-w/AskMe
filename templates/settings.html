@@ -1,0 +1,20 @@
+{% extends 'inc/base.html' %}
+
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_messages %}
+
+{% block content %}
+    <div class="header">
+        <h1>Settings: {{ request.user.username }}</h1>
+    </div>
+
+    <form action="{% url 'settings' %}" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="my-3 btn btn-primary">Save</button>
+        {% endbuttons %}
+    </form>
+
+{% endblock %}

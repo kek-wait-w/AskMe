@@ -1,0 +1,9 @@
+{% load mathfilters %}
+{% load static %}
+
+<div class="like">
+    <img src="{% static 'img/download.png' %}" alt="">
+    <div class="counter">
+        <span>{{question.rating}}</span>
+    </div>
+</div>
